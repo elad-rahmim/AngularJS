@@ -30,6 +30,30 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+        .when('/:routename?', {
+          templateUrl: 'views/dynamic.html',
+          controller: 'DynamicCtrl',
+          controllerAs: 'dynamic',
+          resolve: {
+            pageContent: function getPage($route, $http) {
+              var pathname = $route.current.pathParams.routename;
+              return $http.get('http://loc.canwin.co.il/wp-json/wp/v2/pages?filter[name]=' + pathname)
+                  .then(getPageSuccess)
+                  .catch(getPageError)
+              function getPageSuccess(response) {
+                if (response.data && response.data[0]) {
+                  return response.data[0];
+                } else {
+                  throw response;
+                }
+              }
+              function getPageError(reason) {
+                console.log('error: ', reason);
+              }
+            }
+          }
+        })
+
       .otherwise({
         redirectTo: '/'
       });
