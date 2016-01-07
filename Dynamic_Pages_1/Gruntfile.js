@@ -24,7 +24,7 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
-
+  var modRewrite = require('connect-modrewrite');
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -89,6 +89,9 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
+              modRewrite([
+                '!\\.html|\\.js|\\.css|\\.png|\\.jpg|\\.jpeg|\\.gif|\\.webp|\\.svg|\\.woff2|\\.woff|\\.ttf$ /index.html [L]'
+              ]),
               connect.static(appConfig.app)
             ];
           }
