@@ -1,0 +1,21 @@
+<div class="header" ng-app="dynamicPages1App">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/">myapp</a>
+            </div>
+            <div class="collapse navbar-collapse" id="js-navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li ng-repeat="nav in sitemap" ng-if="nav.navigation" ng-class="{ 'active' : isActive(nav.path) }"><a ng-href="{{ nav.path }}">{{ nav.name }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

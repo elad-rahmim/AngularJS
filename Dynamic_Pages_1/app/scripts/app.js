@@ -18,6 +18,7 @@ angular
     'ngTouch'
   ])
     .config(function($routeProvider, $locationProvider) {
+
     $locationProvider.html5Mode(true).hashPrefix('!');
     $routeProvider
       .when('/', {
@@ -57,4 +58,12 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+.run(function(sitemapService, $rootScope){
+  sitemapService.set()
+      .then(function () {
+        $rootScope.$broadcast('sitemap:updated', sitemapService.get());
+      });
+});
+
+
